@@ -2,6 +2,10 @@
 
 A high-performance, modular Zsh configuration designed for sub-50ms startup times, interactive fuzzy completions via `fzf-tab`, modern CLI replacements, and a polished prompt powered by [Powerlevel10k](https://github.com/romkatv/powerlevel10k) in Catppuccin Mocha colors.
 
+<p align="center">
+  <img src="./Preview.png" alt="Shell Preview" width="100%">
+</p>
+
 ---
 
 ## ✨ Features
