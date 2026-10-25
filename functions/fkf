@@ -1,0 +1,21 @@
+# ==============================================================================
+# Function: fkf
+# Description: Interactive Flatpak package search, preview, and installer from
+#              Flathub using the 'fzf' fuzzy finder.
+# Usage: fkf
+# Dependencies: flatpak, fzf
+# ==============================================================================
+fkf() {
+    if ! (( $+commands[flatpak] )); then
+        echo "Error: flatpak is required for fkf" >&2
+        return 1
+    fi
+    if ! (( $+commands[fzf] )); then
+        echo "Error: fzf is required for fkf" >&2
+        return 1
+    fi
+
+    flatpak remote-ls flathub --app --columns=application | \
+        fzf --multi --preview 'flatpak remote-info flathub {1}' --preview-window=down:75% | \
+        xargs -ro flatpak install -y
+}

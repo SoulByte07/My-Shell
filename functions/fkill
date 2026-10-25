@@ -1,0 +1,23 @@
+# ==============================================================================
+# Function: fkill
+# Description: Interactive fuzzy process killer using 'ps' and 'fzf'.
+#              Allows fuzzy-searching running processes and terminating them.
+# Usage: fkill [signal]
+# Example: fkill        (defaults to kill -9)
+#          fkill -15    (sends SIGTERM)
+# ==============================================================================
+fkill() {
+    if ! (( $+commands[fzf] )); then
+        echo "Error: fzf is required for fkill" >&2
+        return 1
+    fi
+
+    local signal="${1:--9}"
+    local pid
+
+    pid=$(ps aux | fzf --header="Select process to kill (ESC to abort)" --reverse | awk '{print $2}')
+    
+    if [[ -n "$pid" ]]; then
+        kill "$signal" "$pid" && echo "Killed PID $pid with signal $signal"
+    fi
+}

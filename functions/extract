@@ -1,0 +1,36 @@
+# ==============================================================================
+# Function: extract
+# Description: Universal archive decompression utility supporting .tar.gz,
+#              .tar.bz2, .zip, .rar, .7z, .tar, .bz2, .gz, etc.
+# Usage: extract <archive1> [archive2 ...]
+# Example: extract project.tar.gz backup.zip
+# ==============================================================================
+extract() {
+    if (( $# == 0 )); then
+        echo "Usage: extract <archive_file> [...]" >&2
+        return 1
+    fi
+
+    local archive
+    for archive in "$@"; do
+        if [[ ! -f "$archive" ]]; then
+            echo "Error: '$archive' is not a valid file!" >&2
+            continue
+        fi
+
+        case "$archive" in
+            *.tar.bz2|*.tbz2)   tar xvjf "$archive" ;;
+            *.tar.gz|*.tgz)     tar xvzf "$archive" ;;
+            *.tar.xz|*.txz)     tar xvJf "$archive" ;;
+            *.tar.zst)          tar --zstd -xvf "$archive" ;;
+            *.tar)              tar xvf "$archive" ;;
+            *.bz2)              bunzip2 "$archive" ;;
+            *.rar)              unrar x "$archive" 2>/dev/null || rar x "$archive" ;;
+            *.gz)               gunzip "$archive" ;;
+            *.zip)              unzip "$archive" ;;
+            *.Z)                uncompress "$archive" ;;
+            *.7z)               7z x "$archive" ;;
+            *)                  echo "Error: Unknown archive format for '$archive'" >&2 ;;
+        esac
+    done
+}

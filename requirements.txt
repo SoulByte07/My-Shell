@@ -1,0 +1,40 @@
+# ==============================================================================
+# Package Manifest
+# Description: Required and recommended packages for this Zsh configuration.
+#
+# Installation Examples:
+#   Arch Linux:
+#     sudo pacman -S --needed $(grep -vE '^#|^$' requirements.txt)
+#
+#   Alpine Linux:
+#     apk add $(grep -vE '^#|^$' requirements.txt)
+#
+#   Debian / Ubuntu:
+#     sudo apt install $(grep -vE '^#|^$' requirements.txt)
+# ==============================================================================
+
+# Core Shell & Plugins
+zsh
+zsh-theme-powerlevel10k
+zsh-autosuggestions
+zsh-syntax-highlighting
+
+# Modern CLI Tools
+fzf
+zoxide
+eza
+bat
+git
+git-delta
+fd
+ripgrep
+lazygit
+trash-cli
+
+# Editors & Multiplexers
+neovim
+tmux
+
+# Clipboard & Utilities
+wl-clipboard
+curl

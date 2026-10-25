@@ -1,0 +1,21 @@
+# ==============================================================================
+# Function: mvcd
+# Description: Moves files/directories and automatically changes working
+#              directory into destination if the destination is a directory.
+# Usage: mvcd <source> <destination>
+# Example: mvcd folder ~/archive/
+# ==============================================================================
+mvcd() {
+    if (( $# < 2 )); then
+        echo "Usage: mvcd <source> <destination>" >&2
+        return 1
+    fi
+
+    local dest="${@: -1}"
+
+    if [[ -d "$dest" ]]; then
+        command mv -i "$@" && cd "$dest"
+    else
+        command mv -i "$@"
+    fi
+}

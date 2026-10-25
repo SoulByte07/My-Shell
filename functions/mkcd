@@ -1,0 +1,15 @@
+# ==============================================================================
+# Function: mkcd
+# Description: Creates nested directories with 'mkdir -p' and immediately
+#              switches working directory into the created path.
+# Usage: mkcd <directory_path>
+# Example: mkcd path/to/new/folder
+# ==============================================================================
+mkcd() {
+    if (( $# == 0 )); then
+        echo "Usage: mkcd <directory_path>" >&2
+        return 1
+    fi
+
+    command mkdir -p "$1" && cd "$1"
+}

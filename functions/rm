@@ -1,0 +1,32 @@
+# ==============================================================================
+# Function: rm
+# Description: Safe trash-first removal wrapper. Moves files to desktop/system
+#              trash using 'trash-put' when available, prompting for confirmation
+#              when deleting more than 3 files. Falls back safely to standard rm.
+# Usage: rm <file1> [file2 ...]
+# ==============================================================================
+rm() {
+    if (( $+commands[trash-put] )); then
+        if (( $# > 3 )); then
+            local response
+            printf "Confirm: Move %s items to trash? [Y/n]: " "$#"
+            read -r response
+            response="${response:-y}"
+
+            case "$response" in
+                [yY]|[yY][eE][sS])
+                    trash-put "$@"
+                    ;;
+                *)
+                    echo "Aborted."
+                    return 1
+                    ;;
+            esac
+        else
+            trash-put "$@"
+        fi
+    else
+        # Portable system rm fallback with safety flag
+        command rm -I "$@"
+    fi
+}

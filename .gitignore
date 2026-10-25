@@ -1,0 +1,24 @@
+# Compiled bytecode
+*.zwc
+*.zwc.old
+
+# Completion dump files
+.zcompdump*
+
+# Runtime and tool caches
+.cache/
+tools/
+zcompcache/
+
+# Local/private overrides (never commit personal configs or secrets)
+*.local
+*.local.zsh
+.zshrc.local
+.zshenv.local
+
+# OS & Editor metadata
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

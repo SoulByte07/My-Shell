@@ -1,0 +1,28 @@
+# ==============================================================================
+# Function: lfcd
+# Description: Terminal file manager integration (lf) that switches the current
+#              working directory of the shell to the last directory visited in lf.
+# Usage: lfcd [lf-options]
+# Example: lfcd
+# ==============================================================================
+lfcd() {
+    if ! (( $+commands[lf] )); then
+        echo "Error: lf file manager is not installed" >&2
+        return 1
+    fi
+
+    local tmp
+    tmp="$(mktemp 2>/dev/null || mktemp -t 'lfcd')"
+    
+    command lf -last-dir-path="$tmp" "$@"
+    
+    if [[ -f "$tmp" ]]; then
+        local dir
+        dir="$(cat "$tmp")"
+        command rm -f "$tmp"
+        
+        if [[ -d "$dir" && "$dir" != "$PWD" ]]; then
+            cd "$dir" || return
+        fi
+    fi
+}

@@ -1,0 +1,22 @@
+# ==============================================================================
+# Function: cpcd
+# Description: Copies files/directories and automatically changes working
+#              directory into destination if the destination is a directory.
+# Usage: cpcd <source> <destination>
+# Example: cpcd file.txt ~/projects/
+# ==============================================================================
+cpcd() {
+    if (( $# < 2 )); then
+        echo "Usage: cpcd <source> <destination>" >&2
+        return 1
+    fi
+
+    # Destination is the last passed argument
+    local dest="${@: -1}"
+
+    if [[ -d "$dest" ]]; then
+        command cp -i "$@" && cd "$dest"
+    else
+        command cp -i "$@"
+    fi
+}
