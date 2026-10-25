@@ -3,7 +3,7 @@
 A high-performance, modular Zsh configuration designed for sub-50ms startup times, interactive fuzzy completions via `fzf-tab`, modern CLI replacements, and a polished prompt powered by [Powerlevel10k](https://github.com/romkatv/powerlevel10k) in Catppuccin Mocha colors.
 
 <p align="center">
-  <img src="./Preview.png" alt="Shell Preview" width="100%">
+  <img src="./ScreenShots/Preview.png" alt="Shell Preview" width="100%">
 </p>
 
 ---
@@ -48,8 +48,8 @@ A high-performance, modular Zsh configuration designed for sub-50ms startup time
 │   ├── mvcd               # Move and cd into destination
 │   ├── pf                 # Interactive Arch package search/install (paru + fzf)
 │   └── rm                 # Safe trash-first removal wrapper
-└── plugins/
-    └── zsh-defer/         # Vendored zsh-defer engine
+└── ScreenShots/
+    └── Preview.png        # Shell screenshot preview
 ```
 
 ---
@@ -87,7 +87,15 @@ Clone this repository to your XDG config directory:
 git clone https://github.com/SoulByte07/My-Shell.git ~/.config/zsh
 ```
 
-### 3. Configure ZDOTDIR
+### 3. Install zsh-defer (Recommended for Sub-50ms Startup)
+Clone `zsh-defer` into your plugins directory:
+
+```bash
+git clone https://github.com/romkatv/zsh-defer.git ~/.config/zsh/plugins/zsh-defer
+```
+*(If omitted, plugins load synchronously with automatic graceful fallback).*
+
+### 4. Configure ZDOTDIR
 Ensure Zsh knows where to find your configuration. Add this single line to `~/.zshenv`:
 
 ```bash

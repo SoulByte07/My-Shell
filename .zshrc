@@ -118,6 +118,8 @@ function _zcompile_check() {
 }
 if (( $+functions[zsh-defer] )); then
     zsh-defer _zcompile_check
+else
+    _zcompile_check
 fi
 
 # --- 7. Local Overrides ---
